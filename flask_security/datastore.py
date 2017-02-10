@@ -188,7 +188,13 @@ class SQLAlchemyUserDatastore(SQLAlchemyDatastore, UserDatastore):
             return self.user_model.query.get(identifier)
         for attr in get_identity_attributes():
             query = getattr(self.user_model, attr).ilike(identifier)
-            rv = self.user_model.query.filter(query).first()
+            try:
+                rv = self.user_model.query.filter(query).first()
+            except:
+                try:
+                    rv = self.user_model.query.filter(query).first()
+                except:
+                    raise
             if rv is not None:
                 return rv
 
