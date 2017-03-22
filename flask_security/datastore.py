@@ -208,9 +208,27 @@ class SQLAlchemyUserDatastore(SQLAlchemyDatastore, UserDatastore):
         return True
 
     def find_user(self, **kwargs):
+        #ssmith
+        #return self.user_model.query.filter_by(**kwargs).first()
+        try:
+            return self.user_model.query.filter_by(**kwargs).first()
+        except:
+            try:
+                return self.user_model.query.filter_by(**kwargs).first()
+            except:
+                raise
         return self.user_model.query.filter_by(**kwargs).first()
 
     def find_role(self, role):
+        #ssmith
+        #return self.role_model.query.filter_by(name=role).first()
+        try:
+            return self.role_model.query.filter_by(name=role).first()
+        except:
+            try:
+                return self.role_model.query.filter_by(name=role).first()
+            except:
+                raise
         return self.role_model.query.filter_by(name=role).first()
 
 
